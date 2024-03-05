@@ -1,0 +1,7 @@
+<span class="text-sm text-gray-500">
+  <% if @timestamp.present? %>
+    <p title="<%= @timestamp %>">Synced <%= time_ago_in_words(@timestamp) %> ago</p>
+  <% else %>
+    <%= @alternate %>
+  <% end %>
+</span>

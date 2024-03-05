@@ -1,0 +1,48 @@
+<h2 class="mt-3 mb-2 text-xl font-semibold">Welcome to Somersault!</h2>
+<p class="mb-3"> As an early-stage healthcare startup, our first engineering task is to build a Rails app that manages our patients.</p>
+
+<p class="mb-3">
+  We already have a functional 
+  <a href="<%= patients_path %>" class="font-medium text-blue-600 underline">patients page</a>
+  that shows the patients in our own database as a list of "card" elements.
+</p>
+
+<p class="mb-3">Because we don't have time to build everything ourselves, we use a third-party service called Sicklie to manage the health records (EHR) and appointments for our patients.</p>
+
+<p class="mb-3">Our integration with Sicklie is very basic at the moment - we have a button for each patient on our patients page that we manually click to "sync" that patient with Sicklie. 
+When we "sync", we call the Sicklie API to create a new patient record in Sicklie if it doesn't exist yet, or updates their record if it already does.</p>
+
+<h2 class="mb-2 text-lg font-semibold">We have two high-priority tasks for you:</h2>
+<ol class="space-y-1 list-decimal list-inside mb-3">
+  <li class="mb-2">
+    Sicklie hasn't been very reliable so far. At times, it seems like they're just sending us random responses back instead of doing what we ask. Because of this, when we click the "sync" button it's very important that we can see in the UI if the request was successful. When it's not successful, we need to show anything they tell us so we have a better chance of fixing the problem.
+    <ul class="mt-2 pl-5 space-y-1 list-disc list-inside">
+      <li>Add success and error reporting for the "sync" button.</li>
+    </ul>
+  </li>
+  <li>
+    The business is growing and we want our app to manage not only current patients, but prospective patients. The business calls a prospective patient a "Contact".
+    We'll need a new model to represent a Contact, and a new page with the same grid layout as the patients page, but listing all the Contact records instead.
+    <ul class="mt-2 pl-5 space-y-1 list-disc list-inside">
+      <li>A Contact has a first name and last name, similar to a patient. This is the only info we need to show on the card.</li>
+      <li>
+        Within a Contact card, we will need a button that lets the Contact become a Patient (that is, create an associated Patient record in our database).
+        When creating the Patient, you can just populate the avatar_url with a hard-coded value (e.g. "https://robohash.org/quitotamnon.png?size=300x300&set=set1").
+        </li>
+      <li>Once a Contact has an associated Patient, we will want to render the Contact card exactly as if it were a Patient instead (including the working Sync button).
+        <p>So the Contacts grid could look something like this:</p>
+        <%= image_tag "contacts-page-example.png" %>
+        <p>(Georgianna and Clint are both Contacts, but only Clint has become a Patient).</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 class="my-2 text-lg font-semibold">Things to keep in mind</h2>
+<ul class="my-2 space-y-1 list-disc list-inside">
+  <li>It's fair game to add new files. Any existing file can be changed unless it specifically says otherwise.</li>
+  <li>There are no right or wrong solutions as long as the requirements are met - but we do like to be able to explain our decisions.</li>
+  <li>We do have a very minimal rspec test suite that needs to stay passing. More coverage is always a bonus, especially for new code.</li>
+  <li>Good luck!</li>
+</ul>
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Somersault Company Portal</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <main class="container mx-auto mt-4 px-4">
+      <div class="flex items-center text-green-800">
+        <svg class="w-6 h-6 mr-2 bg-green-800 text-white p-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97"/>
+        </svg>
+        <h1 class="font-bold text-2xl sm:text-4xl whitespace-nowrap">Somersault Healthcare</h1>
+      </div>
+
+      <% flash.each do |key, value| %>
+        <% 
+        flash_classes = case key
+          when "success"
+            "text-green-800 border-green-300 bg-green-50"        
+          when "info"
+            "text-blue-800 border-blue-300 rounded-lg bg-blue-50"
+          when "warning"
+            "text-yellow-800 border-yellow-300 bg-yellow-50"          
+          when "danger"
+            "text-red-800 border-red-300 bg-red-50"
+          else
+            ""        
+          end
+        %>
+        <div class="flex items-center p-4 my-4 text-sm border rounded-lg <%= flash_classes %>" role="alert">
+          <svg class="flex-shrink-0 inline w-4 h-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <div><%= value %></div>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
