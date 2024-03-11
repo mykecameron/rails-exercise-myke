@@ -3,6 +3,9 @@ class Contact < ApplicationRecord
 
   belongs_to :patient, optional: true
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   def create_patient!(attributes = {})
     super({
       first_name: first_name,
