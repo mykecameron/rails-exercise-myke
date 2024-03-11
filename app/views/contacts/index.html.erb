@@ -2,10 +2,10 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-4 justify-items-center">
   <% @contacts.each do |contact| %>
-    <%= render CardComponent.new do %>
-      <h5 class="mb-1 text-xl font-medium text-gray-900">
-        <%= render FullNameComponent.new(contact) %>
-      </h5>      
+    <% if contact.patient %>
+      <%= render PatientCardComponent.new(contact.patient) %>
+    <% else %>
+      <%= render ContactCardComponent.new(contact) %>
     <% end %>
   <% end %>
 </div>
