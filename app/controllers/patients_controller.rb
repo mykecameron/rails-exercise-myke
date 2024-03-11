@@ -5,6 +5,24 @@ class PatientsController < ApplicationController
     @patients = Patient.all.order(:first_name, :last_name)
   end
 
+  def create
+    contact = Contact.find(params[:contact_id])
+
+    ApplicationRecord.transaction do
+      patient = contact.create_patient!({
+        first_name: contact.first_name,
+        last_name: contact.last_name,
+        avatar_url: Contact::DEFAULT_AVATAR_URL,
+      })
+      contact.save!
+  
+      flash[:info] = "Created patient '#{patient.first_name} #{patient.last_name}' with Sicklie"
+    end
+
+
+    redirect_to controller: :contacts, action: :index
+  end
+
   def sync
     @patient = Patient.find(params[:id])
 
