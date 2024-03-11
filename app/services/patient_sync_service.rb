@@ -15,6 +15,8 @@ class PatientSyncService
           sicklie_id: result[:sicklie_id],
           sicklie_updated_at: Time.current
         )
+      else
+        raise SyncError, result
       end
     else
       result = SicklieApi.update_patient(
@@ -24,7 +26,15 @@ class PatientSyncService
       )
       if result.is_a?(Hash) && result[:status_code] == "SUCCESS"
         @patient.update!(sicklie_updated_at: Time.current)
-      end      
+      else
+        raise SyncError.new(result)
+      end
+    end
+  end
+
+  class SyncError < StandardError
+    def initialize(result)
+      super("Error syncing with Sicklie: #{result}")
     end
   end
 end
