@@ -1,4 +1,6 @@
 class PatientsController < ApplicationController
+  rescue_from PatientSyncService::SyncError, with: :flash_sync_error
+  
   def index
     @patients = Patient.all.order(:first_name, :last_name)
   end
@@ -9,6 +11,13 @@ class PatientsController < ApplicationController
     PatientSyncService.new(@patient).sync
 
     flash[:info] = "Synced patient '#{@patient.first_name} #{@patient.last_name}' with Sicklie"
+    redirect_to action: :index
+  end
+
+  private
+
+  def flash_sync_error(error)
+    flash[:danger] = error.message
     redirect_to action: :index
   end
 end
