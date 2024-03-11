@@ -33,4 +33,17 @@ RSpec.describe PatientsController, type: :controller do
       end
     end
   end
+
+  describe "POST index" do
+    let!(:contact) { FactoryBot.create(:contact) }
+
+    it "creates a patient from the contact" do
+      expect { post :create, params: { contact_id: contact.id } }.to change(Patient, :count).by(1)
+      expect(contact.reload.patient.attributes).to include({
+        "first_name" => contact.first_name,
+        "last_name" => contact.last_name,
+        "avatar_url" => Contact::DEFAULT_AVATAR_URL,
+      })
+    end
+  end
 end
