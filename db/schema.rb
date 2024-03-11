@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_11_155850) do
     t.integer "patient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["first_name", "last_name"], name: "index_contacts_on_first_name_and_last_name"
     t.index ["patient_id"], name: "index_contacts_on_patient_id"
   end
 
