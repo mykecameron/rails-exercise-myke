@@ -21,7 +21,8 @@ RSpec.describe PatientSyncService, type: :service do
           let(:api_response) { "Internal server error" }
 
           it "throws an error containing the message" do
-            expect { call }.to raise_error PatientSyncService::SyncError, "Error syncing with Sicklie: Internal server error"
+            expect { call }.to raise_error PatientSyncService::SyncError, 
+              "Error syncing with Sicklie: Internal server error"
           end
         end
 
