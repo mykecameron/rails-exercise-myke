@@ -11,7 +11,7 @@ RSpec.describe PatientSyncService, type: :service do
 
     before { freeze_time }
 
-    shared_examples "handles errors" do
+    shared_examples "raises exceptions on errors" do
       describe "error handling" do
         before do
           allow(SicklieApi).to receive(:create_patient).and_return api_response
@@ -62,7 +62,7 @@ RSpec.describe PatientSyncService, type: :service do
         )
       end
 
-      it_behaves_like "handles errors"
+      it_behaves_like "raises exceptions on errors"
     end
 
     context "when the patient has a sicklie_id" do
@@ -89,7 +89,7 @@ RSpec.describe PatientSyncService, type: :service do
         )
       end
 
-      it_behaves_like "handles errors"
+      it_behaves_like "raises exceptions on errors"
     end    
   end
 end
